@@ -301,9 +301,12 @@ generate();
 $('.minus').click(function(v){
 var obj=$(this).next();
 var currval=parseInt(obj.html());
-generate();
+
 //update
-if(currval>0)obj.html(currval-1);
+if(currval>0){
+	obj.html(currval-1);
+generate();
+}
 });
 
 function generate(){
