@@ -147,6 +147,19 @@ float:left;
 
 
 </style>
+<script src="https://www.gstatic.com/firebasejs/3.6.5/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBgXbvakAYCAYO9--OYgXzqBQOYu_g-bq4",
+    authDomain: "pattachitra-98924.firebaseapp.com",
+    databaseURL: "https://pattachitra-98924.firebaseio.com",
+    storageBucket: "pattachitra-98924.appspot.com",
+    messagingSenderId: "783107304440"
+  };
+  firebase.initializeApp(config);
+  database=firebase.database();
+</script>
 <script type="text/javascript" src="p5.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <body>
@@ -333,6 +346,16 @@ function randomize(){
 			for(var j=0;j<reew;j++)randomapa[i].push(Math.random()*innerWidth*0.65);
 		}
 	}
+}
+function like(){
+var data={
+	corresponding_numbers:numtrees,
+	random_widths:randomapa
+}
+	var ref=database.ref('/');
+
+ref.push(data);
+alert('Thank you for your response! To take another test, reload the page.');
 }
 </script>
 </html>
