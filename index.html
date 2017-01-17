@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Coding Quickie: Stargaze</title>
+</head>
+<link href="https://fonts.googleapis.com/css?family=Cinzel|Lato" rel="stylesheet">
+<style type="text/css">
+html,body{
+	overflow: hidden;
+}
+*{
+	padding:0;
+	margin: 0;
+}
+#controls{
+	position: fixed;
+	top:0;
+	left:0;
+	width:20%;
+		background: #fcf6e8;
+		font-family: Cinzel;
+		text-align: center;
+	height: 100%;
+}
+	#content{
+		position: fixed;
+		top:0;
+		left:20%;
+		z-index: -2;
+
+
+
+	}
+
+	#cover{
+		z-index: 100;
+		position: fixed;
+		top:0;
+		width: 100vw;
+		height: 100%;
+		visibility: visible;
+		opacity: 1;
+		font-family: 'Cinzel';
+		left:0;
+		background: #FCE8B9;
+		transition: visibility 1s,opacity 0.5s linear;
+	}
+	.innercontents{
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		margin: auto;
+		color:black;
+		font-family: 'Cinzel',Helvetica;
+		text-align: center;
+		top:49%;
+		font-size: 0.8em;
+		left:26%;
+		
+		
+	}
+	.heading{
+		border:2px solid black;
+		padding:2%;
+		width:600px;
+		margin-bottom: 15%;
+	}
+
+h5{
+	margin-top: 10%;
+}
+	.btn{
+		font-size: 1em;
+		color:white;
+		padding: 10pt;
+		background: black;
+		border-radius: 5pt;
+		font-size: Cinzel;
+		cursor: pointer;
+
+	}
+	.fir{
+		position: absolute;
+		top:-130%;
+		left:-35%;
+	}
+	.sec{
+		position: absolute;
+		top:-130%;
+		left:100%;
+	}
+	#instructions{
+		z-index: 10;
+		color:white;
+		position: fixed;
+		bottom:20px;
+		text-align: center;
+		font-family: Lato;
+		display: block;
+		width: 100%;
+				transition: visibility 1s,opacity 0.5s linear;
+
+	}
+	.row{
+		width: 100%;
+		text-align: center;
+		
+		clear: both;
+	}
+	#btns{
+		position: absolute;
+		margin-top: 70%;
+		margin-left: 10%;
+	}
+	.tile{
+		width: 40%;
+		float: left;
+		border: 2px solid black;
+		margin-left: 5%;
+		margin-top: 5%;
+
+	}
+	.tile>img{
+		width: 100%;
+		height: 120px;
+	}
+	#thmb{
+		margin-top: 10%;
+		margin-bottom: 10%;
+	}
+	.plus{
+		float:right;
+		cursor: pointer;
+		background:black;
+		color:white;
+		display: inline-block;
+		width: 20px;
+	}
+	.minus{
+		cursor: pointer;
+				background:black;
+		color:white;
+		display: inline-block;
+		width: 20px;
+float:left;
+	}
+
+
+</style>
+<script type="text/javascript" src="p5.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<body>
+<div id="controls">
+<h5>Pick trees in the Pattachitra</h5>
+<div id="thmb">
+	<div class="row">
+		<div class="tile"><img src="res/tree01.png"><div class="counter">
+			
+<span class="minus" data-target="one">-</span>
+<span class="dispval" data-target="one">0</span>
+<span class="plus" data-target="one">+</span>
+
+		</div></div>
+		<div class="tile"><img src="res/tree02.png"><div class="counter">
+			
+<span class="minus">-</span>
+<span class="dispval">0</span>
+<span class="plus">+</span>
+
+		</div></div>
+	</div>
+	<div class="row">
+		<div class="tile"><img src="res/tree03.png"><div class="counter">
+			
+<span class="minus">-</span>
+<span class="dispval">0</span>
+<span class="plus">+</span>
+
+		</div></div>
+		<div class="tile"><img src="res/tree04.png"><div class="counter">
+			
+<span class="minus">-</span>
+<span class="dispval">0</span>
+<span class="plus">+</span>
+
+		</div></div>
+	</div>
+	<div class="row">
+		<div class="tile"><img src="res/tree05.png"><div class="counter">
+			
+<span class="minus">-</span>
+<span class="dispval">0</span>
+<span class="plus">+</span>
+
+		</div></div>
+		<div class="tile"><img src="res/tree06.png"><div class="counter">
+			
+<span class="minus">-</span>
+<span class="dispval">0</span>
+<span class="plus">+</span>
+
+		</div></div>
+	</div>
+</div>
+<div id="btns">
+<span class="btn" onclick="randomize();">Randomize</span>
+
+<span class="btn" onclick="like();">Like it!</span>
+</div>
+
+
+</div>
+<div id="content"></div>
+<div id="instructions">Some shit.</div>
+<div id="cover">
+
+
+<div class="innercontents">
+<div class="heading">
+<h1>Computational Pattachitra Generator</h1>
+<h4>Creating artworks through parametric design.</h4>
+</div>
+<span class="btn" onclick="hiide();">Proceed</span>
+<img class="fir" src="res/hum1.png">
+<img class="sec" src="res/hum2.png">
+</div>
+
+
+</div>
+</body>
+<script type="text/javascript">
+var trees=[],humans=[],numtrees=[0,0,0,0,0,0],correction=[160,200,250,250,160,220],randomapa=[[],[],[],[],[],[]];
+//setTimeout(hiide,3000);
+function hiide(){
+	document.getElementById('cover').style.opacity="0";
+	document.getElementById('cover').style.visibility="hidden";
+}
+
+	function preload(){
+		for(var i=1;i<=6;i++)trees[i]=loadImage('res/tree0'+i+'.png');
+		for(var i=1;i<=4;i++)humans[i]=loadImage('res/hum'+i+'.png');
+		
+	}
+	function setup(){
+		var mycanvas=createCanvas(innerWidth*0.8,innerHeight);
+		mycanvas.parent('content');
+		rectMode(CENTER);
+		noStroke();
+		
+	}
+	function draw(){
+				background(255);
+
+	push();
+	translate(width/2,height/2);
+	fill('#E1D6B8');
+	rect(0,0,width,height);
+
+	fill('#503100');
+	rect(0,0,width-35,height-35);
+
+	fill('#ffffff');
+	rect(0,0,width-70,height-70);
+
+	fill('#EAE3C6');
+	rect(0,0,width-90,height-90);
+fill('#638FA1');
+
+	rect(0,height/2-95,width-90,100)
+
+	pop();
+
+//here our dynamic trees and possibly houses get added
+numtrees.forEach(function(v,i,arr){
+var currtree=trees[i+1];
+if(v!=0)for(var j=0;j<v;j++){
+image(currtree,randomapa[i][j],height-currtree.height+correction[i],currtree.width/2,currtree.height/2);
+}
+});
+		
+
+
+			var spacing=width/4;
+		for(var i=1;i<=4;i++){
+	//	image(trees[i],160*i,500,trees[i].width/2,trees[i].height/2);
+		image(humans[i],spacing*0.71*i,height*0.6,humans[i].width*0.45,humans[i].height*0.45);
+	}
+
+	}
+	function windowResized() {
+		resizeCanvas(windowWidth, windowHeight);
+	}
+
+$('.plus').click(function(v){
+var obj=$(this).prev();
+var currval=parseInt(obj.html());
+//update
+obj.html(currval+1);
+generate();
+});
+$('.minus').click(function(v){
+var obj=$(this).next();
+var currval=parseInt(obj.html());
+generate();
+//update
+if(currval>0)obj.html(currval-1);
+});
+
+function generate(){
+numtrees=[];
+	var objs=$('.dispval');
+	for(var i=0;i<objs.length;i++){
+		var doo=parseInt(objs[i].innerHTML);
+		numtrees.push(doo);
+		randomapa[i]=[];
+		if(doo!=0)for(var j=0;j<doo;j++){
+			randomapa[i].push(Math.random()*innerWidth*0.65);
+		}
+
+	}
+
+
+	
+}
+function randomize(){
+	for(var i=0;i<numtrees.length;i++){
+		if(numtrees[i]!=0){
+			var reew=numtrees[i];
+			randomapa[i]=[];
+			for(var j=0;j<reew;j++)randomapa[i].push(Math.random()*innerWidth*0.65);
+		}
+	}
+}
+</script>
+</html>
